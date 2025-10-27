@@ -65,6 +65,7 @@ Seurat_Object_QC_list <- function(Samples) {
     seurat_obj[["percent.mt"]] <- PercentageFeatureSet(seurat_obj, pattern = "^mt-")
     
     # --- Step 4: MAD filtering and mitochondrial threshold ---
+    # Note: For single-nucleus, use 2% percent.mt; For single-cell, use 10%;
     bool_vector <- !mad_outlier(seurat_obj, 'log1p_total_counts', 5) &
       !mad_outlier(seurat_obj, 'log1p_n_genes_by_counts', 5)
     seurat_obj <- subset(seurat_obj, cells = which(bool_vector))
